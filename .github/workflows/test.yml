@@ -19,7 +19,7 @@ jobs:
         
       - shell: bash
         run: echo "QUUX"
-        if: env.BAR == "BAZ"
+        if: env.BAR == 'BAZ'
 
       - shell: bash
         run: echo "FOOBAR
