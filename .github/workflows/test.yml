@@ -16,10 +16,11 @@ jobs:
     steps:
       - shell: bash
         run: echo "BAR=BAZ" >> ${GITHUB_ENV}
+        if: env.BAR != ''
         
       - shell: bash
-        run: echo "QUUX"
-        if: env.BAR == 'BAZ'
+        run: echo "BAR=QUUX" >> ${GITHUB_ENV}
+        if: env.BAR != ''
 
       - shell: bash
-        run: echo "FOOBAR
+        run: echo ${BAR}
