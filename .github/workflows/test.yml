@@ -1,0 +1,22 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/test.yml
+
+jobs:
+
+  foo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    steps:
+      - shell: bash
+        run: echo "BAR=BAZ" >> ${GITHUB_ENV}
+        
+      - shell: bash
+        run: echo QUUX
+        if: env.BAR == "BAZ"
