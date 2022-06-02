@@ -12,11 +12,14 @@ jobs:
   foo:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    
+
     steps:
       - shell: bash
         run: echo "BAR=BAZ" >> ${GITHUB_ENV}
         
       - shell: bash
-        run: echo QUUX
+        run: echo "QUUX"
         if: env.BAR == "BAZ"
+
+      - shell: bash
+        run: echo "FOOBAR
