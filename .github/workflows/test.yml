@@ -13,6 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
+    if: |
+      github.run_attempt == '0'
+      || !(github.ref_name == 'main' || startsWith(github.ref_name, 'release/'))
+
     steps:
       - shell: bash
         run: echo "BAR=BAZ" >> ${GITHUB_ENV}
