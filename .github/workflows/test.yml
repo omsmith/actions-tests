@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        msg: ${{ fromJson(input.json).*.msg }}
+        msg: ${{ fromJson(inputs.json).*.msg }}
 
     steps:
       - shell: bash
