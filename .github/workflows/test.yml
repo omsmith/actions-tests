@@ -1,11 +1,11 @@
 name: Test
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - .github/workflows/test.yml
+  workflow_dispatch:
+    inputs:
+      json:
+        required: true
+        type: string
 
 jobs:
 
@@ -13,18 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
-    if: |
-      github.run_attempt == '1'
-      || !(github.ref_name == 'main' || startsWith(github.ref_name, 'release/'))
+    strategy:
+      matrix:
+        msg: ${{ fromJson(input.json).*.msg }}
 
     steps:
       - shell: bash
-        run: echo "BAR=BAZ" >> ${GITHUB_ENV}
-        if: env.BAR == ''
-        
-      - shell: bash
-        run: echo "BAR=QUUX" >> ${GITHUB_ENV}
-        if: env.BAR == ''
-
-      - shell: bash
-        run: echo ${BAR}
+        run: echo "${msg}"
+        env:
+          msg: ${{ matrix.msg }}
